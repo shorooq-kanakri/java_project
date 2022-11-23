@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Attendence </title>
+    <link rel="stylesheet" href="att.css">
+    <link rel="icon" href="./image/HAMD.png" type="image/icon type">
+
+    <style>
+        body {
+            background-image: url('../Images/pexels-tyler-lastovich-1275929.jpg');
+            background-size: cover;
+        }
+        .inputs {
+            background: rgb(35, 36, 36);
+            margin-right: 12%;
+            margin-left: 12%;
+        }
+    </style>
+</head>
+<body>
+   
+    <div class="crud">
+        <div class="head">
+            <h2> Attendence Tabel </h2>
+            <p> Tracker System </p>
+        </div>
+
+
+
+        <div class="inputs">
+
+            <form id="form" >
+                <div>
+                    <label >Id</label>
+                    <input type="text" class="inputinf" id="studentid" placeholder="id" required>
+                </div>
+                <div>
+                    <label >Student Name</label>
+                    <input type="text" class="inputinf"  id="StudentName" placeholder="StudentName" required>
+                </div>
+                <div>
+                    <label>Email</label>
+                    <input type="email"  class="inputinf"  id="Email" placeholder="Email" required>
+                </div>
+                <div>
+                 <label>Absence days</label>
+                 <input type="number" class="inputinf" id="AbsenceDays" placeholder="Absence days" required>
+             </div>
+             <div>
+                 <label>Tasks</label>
+                 <input type="text"  class="inputinf"  id="Tasks" placeholder="Tasks" required >
+             </div>
+             <div>
+                 <label>Feedback</label>
+                 <textarea id="Feedback"></textarea>
+             </div>                
+            </form>
+        </div>
+
+        <div>
+            <button  class="submit"   id="Submit" >submit</button>
+        </div>
+
+
+
+
+        <div class="outputs">
+<!-- <div class="search">
+    <input type="text" id="search" placeholder="search">
+</div> -->
+
+<div id="DeletAll">
+    
+</div>
+
+<table>
+    <tr>
+        <th> ID </th>
+        <th> Name </th>
+        <th> Email </th>
+        <th> Absence Day</th>
+        <th> Task </th>
+        <th> All Task </th>
+        <th> Edit </th>
+        <th> Delete </th>
+    </tr>
+    <tbody id="tbody"> 
+</tbody>
+</table>
+
+</div>
+
+   </div>
+
+<script> 
+
+//Get Total 
+//Create , Submit 
+//save
+//clear
+//Read
+//Update
+//Search
+// Clean Data
+
+
+
+
+
+let ID = document.getElementById('studentid');
+let Sname = document.getElementById('StudentName');
+// let Pnumber = document.getElementById('PhoneNumber');
+// let Education = document.getElementById('Education');
+let Email = document.getElementById('Email');
+let AbsDay = document.getElementById('AbsenceDays');
+let Task = document.getElementById('Tasks');
+let Total = document.getElementById('total');
+let Submit = document.getElementById('Submit');
+
+
+let Amro = 'Create'
+// console.log(ID,Sname,Education,Email,AbsDay,Task,Submit);
+
+
+
+
+// function TaskRe(){
+
+// if (Task.value != '') {
+
+// let result = +AllTask.value - +Task.value;
+// Total.innerHTML = result;
+// console.log(result);
+// Total.style.background='rgb(188, 38, 38)';
+// }
+
+// else {
+//     Total.innerHTML='';
+//     Total.style.background='#040';
+// }}
+
+
+
+//local & ADD
+
+let Data;
+
+if (localStorage.AllData !=null){
+    Data = JSON.parse(localStorage.AllData)
+} else {
+    Data = [];
+}
+
+ Submit.onclick =function(){
+    event.preventDefault()
+
+    let Info = {
+        ID:ID.value,
+        Sname:Sname.value,
+        Email:Email.value,
+        AbsDay:AbsDay.value,
+        Task:Task.value,
+        // Total:Total.innerHTML,
+    }    
+    Data.push(Info)
+    localStorage.setItem('AllData' , JSON.stringify(Data))
+    // console.log(Data);
+
+
+    ClearData()
+    ShowData()
+}
+
+//Clear 
+function ClearData() {
+        ID.value= '';
+        Sname.value= '';
+        Email.value= '';
+        AbsDay.value= '';
+        Task.value= '';
+        // Total.innerHTML= '';
+}
+
+
+//Read 
+
+function ShowData() {
+
+let table = '';
+
+for ( let i=0; i<Data.length; i++ ) 
+   
+    table += `
+    <tr>
+    <td>${i}</td>
+    <td>${Data[i].ID}</td>
+    <td>${Data[i].Sname}</td>
+    <td>${Data[i].Email}</td>
+    <td>${Data[i].AbsDay}</td>
+    <td>${Data[i].Task}</td>
+    <td> <button onclick="UpdateData(${i})" id="Update">Edit</button></td>
+    <td> <button onclick="DeletData(${i})" id="Delete">Delete</button></td>
+    </tr>
+`
+document.getElementById('tbody').innerHTML = table;
+
+let DeleteBtn = document.getElementById('DeletAll');
+
+if (Data.length > 0 ){
+
+    DeleteBtn.innerHTML = `
+    <button onclick="DeleteAll()">Delete All</button>
+   `
+} 
+   
+   else{
+    DeleteBtn.innerHTML = '';
+}
+}
+ShowData()
+
+
+
+//Delet
+
+function DeletData (i) {
+console.log(i)
+
+Data.splice(i,1);
+localStorage.AllData = JSON.stringify(Data);
+ShowData()
+}
+
+
+//DeletAll , Clear
+
+function DeleteAll() {
+    localStorage.clear();
+    Data.splice(0);
+    ShowData()
+}
+
+
+
+//Update
+function UpdateData(i) {
+   
+
+
+
+    ID.value = Data[i].ID;
+    Sname.value = Data[i].Sname;
+    Email.value = Data[i].Email;
+    AbsDay.value = Data[i].AbsDay;
+    Task.value = Data[i].Task;
+    Submit.innerHTML = 'Update';
+    // Amro = 'Update'
+    // console.log(i)
+
+    scroll ({
+        top:0,
+        behavior:'smooth'
+    })
+}
+
+
+
+
+// // if(Amruo === 'Create'){
+// //     if ( let i = 0; i < Data.count; i++){
+// //         Data.push(Info)
+// //     }else {
+// //         Data.push(Info)
+// //     }
+// // }else {
+
+// //     Data [           ] = Info;
+// Amro = 'Create'
+// Submit.innerHTML ='Create'
+// // }
+
+</script>
+</body>
+</html>

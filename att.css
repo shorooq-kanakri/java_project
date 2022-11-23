@@ -1,0 +1,103 @@
+* {
+    margin :0;
+    padding: 0;
+}
+
+body {
+    background-color: #222;
+    color: azure;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.crud {
+    width: 80%;
+    margin: auto;
+}
+.head {
+    text-align: center;
+    text-transform: uppercase;
+    margin: 10px 0;
+}
+
+input {
+    width: 99%;
+margin: 1% 0%;
+    height: 30px;
+    outline: none;
+    border: none;
+    background-color: #111;
+    /* margin: 4px 0; */
+    border-radius: 4px;
+    padding: 8px;
+    color: #fff;
+}
+
+input:focus {
+    background-color: rgb(174, 204, 206);
+    transform: scale(1.05);
+}
+
+#total {
+    background: rgb(188, 38, 38);
+    padding: 5px 3px;
+    border-radius: 4px;
+}
+
+#total::before {
+    content: 'Total :';
+}
+
+button {
+    width: 77%;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    background: rgb(49, 101, 164);
+    color: #fff;
+    border-radius: 20px;
+    transition: 0.5s;
+    margin-left: 11.7%;
+}
+
+button:hover{
+    background: rgb(140, 181, 192);
+    letter-spacing: 1px;
+}
+
+table {
+width: 100%;
+text-align: center;
+background-color: #2c3860;
+/* border: #fff 1px solid; */
+margin: 20px 0 ;
+}
+
+label {
+    font-weight: 500;
+    text-transform: capitalize;
+    margin-left: 5px;
+}
+
+table th {
+    text-transform: uppercase;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    margin: 20px 0;
+}
+td {
+    /* padding: 5px; */
+    color: #000000;
+    background-color: rgb(115, 137, 157);
+    margin:30px 10px
+    /* border: 1px solid #000; */
+}
+#DeletAll {
+    margin: 20px 0;
+}
+#Submit {
+    margin-top: 20px;
+}
+
+form {
+    background-color: rgb(115, 137, 157);
+}
